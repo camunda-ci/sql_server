@@ -18,9 +18,9 @@
 # limitations under the License.
 #
 
-default['sql_server']['accept_eula'] = false
+default['sql_server']['accept_eula'] = true
 default['sql_server']['product_key'] = nil
-default['sql_server']['version'] = '2008R2'
+default['sql_server']['version'] = '2012'
 
 case node['sql_server']['version']
 when '2008R2'

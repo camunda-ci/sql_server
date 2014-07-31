@@ -31,10 +31,17 @@ default['sql_server']['rs_mode'] = 'FilesOnlyMode'
 default['sql_server']['rs_account'] = 'NT AUTHORITY\NETWORK SERVICE'
 default['sql_server']['rs_startup'] = 'Automatic'
 default['sql_server']['browser_startup'] = 'Disabled'
-default['sql_server']['sysadmins'] = 'Administrator'
+default['sql_server']['sysadmins'] = 'vagrant'
+default['sql_server']['sa_password'] = 'Camunda-BPM123'
 default['sql_server']['sql_account'] = 'NT AUTHORITY\NETWORK SERVICE'
 
-default['sql_server']['server']['installer_timeout'] = 1500
+default['sql_server']['server']['installer_timeout'] = 2000
+
+default['sql_server']['management_studio']['url']    		= 'http://download.microsoft.com/download/5/D/A/5DA8666F-8635-42CF-BDB8-CE0E6D03C310/DEU/x64/SQLManagementStudio_x64_DEU.exe'
+default['sql_server']['management_studio']['checksum']    	= 'dc103afdfbce2d1c42201f4622dfd9561ae1a0a6d97c325a09a2320da235ae92'
+default['sql_server']['management_studio']['package_name']	= 'Microsoft SQL Server Management Studio Express 2012'
+default['sql_server']['management_studio']['feature_list'] = 'SQL,AS,RS,IS,Tools'
+
 
 if kernel['machine'] =~ /x86_64/
   case node['sql_server']['version']

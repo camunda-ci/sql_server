@@ -18,4 +18,5 @@
 # limitations under the License.
 #
 
-include_recipe 'sql_server::client'
+include_recipe 'sql_server::server'
+#include_recipe 'sql_server::client'

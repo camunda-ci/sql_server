@@ -32,6 +32,12 @@ unless node.recipe?("sql_server::server")
     end
 
   end
+  
+#  source node['sql_server']['management_studio']['url']
+#  checksum node['sql_server']['management_studio']['checksum']
+#  installer_type :exe
+#  options "IACCEPTSQLNCLILICENSETERMS=#{node['sql_server']['accept_eula'] ? 'YES' : 'NO'}"
+#  action :install
 
   # update path
   windows_path 'C:\Program Files\Microsoft SQL Server\100\Tools\Binn' do

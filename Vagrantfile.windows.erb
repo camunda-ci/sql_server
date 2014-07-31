@@ -1,0 +1,46 @@
+VAGRANTFILE_API_VERSION = "2"
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |c|
+  c.vm.box = '<%= config[:box] %>'
+  c.vm.box_url = '<%= config[:box_url] %>'
+
+  c.vm.hostname = '<%= config[:vm_hostname] %>'
+  c.vm.guest = :windows
+  c.winrm.username = 'vagrant'
+  c.winrm.password = 'vagrant'
+
+  # Needed for WinRM
+  c.vm.network(:forwarded_port, guest: 5985, host: 1234)
+
+#  c.vm.network(:forwarded_port, guest: 22, host: 1235) # I think this line can be deleted....
+<% Array(config[:network]).each do |opts| %>
+  c.vm.network(:<%= opts[0] %>, <%= opts[1..-1].join(", ") %>)
+<% end %>
+
+  c.vm.synced_folder '.', '/vagrant', disabled: true
+<% config[:synced_folders].each do |source, destination, options|
+     l_source = source.gsub("%{instance_name}", instance.name)
+     l_destination = destination.gsub("%{instance_name}", instance.name)
+     opt = (options.nil? ? '' : ", #{options}")
+%>
+  c.vm.synced_folder '<%= l_source %>', '<%= l_destination %>'<%= opt %>
+<% end %>
+
+  c.vm.provider :virtualbox do |p|
+    p.gui = true
+	p.memory = 2048
+    p.cpus = 2
+	p.customize ["setextradata", "global", "GUI/SuppressMessages", "all" ]
+	p.customize ["setextradata", :id, "CustomVideoMode1", "1024x768x32"]
+  end
+
+  c.berkshelf.berksfile_path = '<%= File.join(Dir.pwd, 'Berksfile') %>'
+  c.berkshelf.enabled = true
+
+  c.vm.provision :chef_solo do |chef|
+    # chef.json = JSON.load(<%= instance.provisioner[:attributes].to_json.inspect %>)
+    chef.json = <%= instance.provisioner[:attributes].to_hash.inspect %>
+  <% instance.provisioner[:run_list].each do |recipe| %>
+    chef.add_recipe '<%= recipe.match(/\[(.*)\]/)[1] %>'
+  <% end %>
+  end
+end

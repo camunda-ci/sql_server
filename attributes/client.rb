@@ -62,6 +62,10 @@ if kernel['machine'] =~ /x86_64/
     default['sql_server']['ps_extensions']['url']               = 'http://download.microsoft.com/download/F/E/D/FEDB200F-DE2A-46D8-B661-D019DFE9D470/ENU/x64/PowerShellTools.MSI'
     default['sql_server']['ps_extensions']['checksum']          = '532261175cc6116439b89be476fa403737d85f2ee742f2958cf9c066bcbdeaba'
     default['sql_server']['ps_extensions']['package_name']      = 'Windows PowerShell Extensions for SQL Server 2008 R2'
+	
+	default['sql_server']['management_studio']['url']    		= 'http://download.microsoft.com/download/5/D/A/5DA8666F-8635-42CF-BDB8-CE0E6D03C310/DEU/x64/SQLManagementStudio_x64_DEU.exe'
+	default['sql_server']['management_studio']['checksum']    	= 'dc103afdfbce2d1c42201f4622dfd9561ae1a0a6d97c325a09a2320da235ae92'
+	default['sql_server']['management_studio']['package_name']	= 'Microsoft SQL Server Management Studio Express 2012'
   end
 
 else

@@ -1,0 +1,8 @@
+{
+  "name": "sql_server_standard",
+  "description": "sql_server playground",
+  "run_list": [
+    "recipe[sql_server::default]"
+  ]
+ 
+}
